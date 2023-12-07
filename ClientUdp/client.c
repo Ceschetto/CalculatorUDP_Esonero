@@ -44,10 +44,24 @@ void clearStdin(void);
 
 int main(int argc, char* argv[])
 {
+	char *serverName;
+	char *portStr;
+
 	if(argc != 2)
 	{
-		printf("Usage: ./%s servername:port", argv[0]);
-		return 1;
+		printf("Usage: ./%s servername:port\n", argv[0]);
+
+		serverName = "localhost";
+		portStr="56700";
+
+		printf("Using default server name(%s) and port(%s)\n", serverName, portStr);
+
+	}
+	else
+	{
+		serverName = strtok(argv[1], ":");
+		portStr = strtok(NULL, ":");
+
 	}
 
 
@@ -67,8 +81,6 @@ int main(int argc, char* argv[])
 	char buffer[BUFFER_SIZE];
 	addrInfo hints, *results = NULL;
 
-	char *serverName = strtok(argv[1], ":");
-	char *portStr = strtok(NULL, ":");
 
 	hints = setHints(AF_INET, SOCK_DGRAM, AI_PASSIVE, 0);
 
